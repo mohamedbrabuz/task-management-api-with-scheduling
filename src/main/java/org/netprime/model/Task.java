@@ -5,7 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
@@ -23,18 +23,18 @@ public class Task {
     private String description;
 
     @Column(nullable = false)
-    private Date dueDate;
+    private LocalDateTime dueDate;
 
     @Column(nullable = false)
     private boolean isCompleted;
 
     @Column(nullable = false)
     @CreationTimestamp
-    private Date created_at;
+    private LocalDateTime created_at;
 
     @Column(nullable = false)
     @UpdateTimestamp
-    private Date updated_at;
+    private LocalDateTime updated_at;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

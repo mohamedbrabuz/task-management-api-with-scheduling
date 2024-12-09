@@ -2,13 +2,13 @@ package org.netprime.dto;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 public class TaskRequest {
 
     private String title;
     private String description;
-    private Date dueDate;
+    private LocalDateTime dueDate;
     private boolean isCompleted;
 }

@@ -10,7 +10,9 @@ import org.netprime.repository.TaskRepository;
 import org.netprime.repository.UserRepository;
 import org.netprime.service.TaskService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -50,7 +52,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskResponse createTask(long userId, TaskRequest taskRequest) {
-        System.out.println(taskRequest);
         // Find the User by the given ID
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new UserNotFoundException("User not found with the given id" + userId));
@@ -98,5 +99,29 @@ public class TaskServiceImpl implements TaskService {
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with the given id" + taskId));
 
         taskRepository.delete(filteredTask);
+    }
+
+    @Override
+    public void sendReminders(Task task) {
+        System.out.println("Reminder: Task " + task.getTitle() + " is due soon!");
+    }
+
+    @Override
+    @Transactional
+    public void scheduleTaskChecks() {
+        // If endDateTime is set to now + 1 day, it will return all tasks due within the next 24 hours.
+        LocalDateTime endDateTime = LocalDateTime.now().plusDays(1);
+        // Send a reminders for all tasks due soon
+        List<Task> tasksDueSoon = taskRepository.findTasksDueSoon(endDateTime);
+        for (Task task : tasksDueSoon) {
+            sendReminders(task);
+        }
+        // Update ended tasks
+        List<Task> overdueTasks = taskRepository.findOverdueTasks();
+        for (Task task : overdueTasks) {
+            task.setCompleted(true);
+            System.out.println("Task " + task.getTitle() + " has been ended!");
+            taskRepository.save(task);
+        }
     }
 }
