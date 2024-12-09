@@ -4,21 +4,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.netprime.model.Task;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 public class TaskResponse {
 
     private String title;
     private String description;
-    private String duaDate;
+    private Date dueDate;
     private boolean isCompleted;
 
     public TaskResponse toTaskResponse(Task task) {
         TaskResponse taskResponse = new TaskResponse();
-        taskResponse.setTitle(taskResponse.getTitle());
+        taskResponse.setTitle(task.getTitle());
         taskResponse.setDescription(task.getDescription());
-        taskResponse.setDuaDate(taskResponse.getDuaDate());
-        taskResponse.setCompleted(taskResponse.isCompleted());
+        taskResponse.setDueDate(task.getDueDate());
+        taskResponse.setCompleted(task.isCompleted());
         return taskResponse;
     }
 }
