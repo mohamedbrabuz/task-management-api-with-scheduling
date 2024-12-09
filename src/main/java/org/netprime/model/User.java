@@ -2,8 +2,8 @@ package org.netprime.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
 import java.util.List;
@@ -20,11 +20,11 @@ public class User {
     private String username;
     private String name;
 
-    @CreatedDate
+    @CreationTimestamp
     private Date created_at;
-    @LastModifiedDate
+    @UpdateTimestamp
     private Date updated_at;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Task> tasks;
 }

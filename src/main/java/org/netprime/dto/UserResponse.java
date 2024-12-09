@@ -1,18 +1,18 @@
 package org.netprime.dto;
 
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 import org.netprime.model.User;
 
-@NoArgsConstructor
+@Data
 public class UserResponse {
 
     private String username;
     private String name;
 
     public UserResponse toUserResponse(User user) {
-        this.username = user.getUsername();
-        this.name = user.getName();
-        return this;
+        UserResponse userResponse = new UserResponse();
+        userResponse.setUsername(user.getUsername());
+        userResponse.setName(user.getName());
+        return userResponse;
     }
 }

@@ -1,7 +1,6 @@
 package org.netprime.service;
 
 
-import org.netprime.dto.ApiResponse;
 import org.netprime.dto.UserRequest;
 import org.netprime.dto.UserResponse;
 

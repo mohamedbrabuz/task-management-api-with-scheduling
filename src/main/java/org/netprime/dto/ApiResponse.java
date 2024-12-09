@@ -1,13 +1,11 @@
 package org.netprime.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.Data;
 
-@AllArgsConstructor
-@NoArgsConstructor
+@Data
 @Builder
-public class ApiResponse {
+public class ApiResponse<T> {
     private boolean success;
     private String message;
 }

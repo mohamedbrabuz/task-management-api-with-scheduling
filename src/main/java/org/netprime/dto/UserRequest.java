@@ -1,9 +1,8 @@
 package org.netprime.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
+@Data
 public class UserRequest {
 
     private String username;
