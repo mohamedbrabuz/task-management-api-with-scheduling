@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse updateUser(long id, UserRequest userRequest) {
         // Find the User by the given ID
         User user = userRepository.findById(id).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given id" + id));
+                new UserNotFoundException("User not found with the given id " + id));
         // Update user fields
         user.setName(userRequest.getName());
         user.setUsername(userRequest.getUsername());
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse getUserByUsername(String username) {
         // Find the User by the given username
         User user = userRepository.findByUsername(username).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given username" + username));
+                new UserNotFoundException("User not found with the given username " + username));
         // Return the user with the given ID
         return new UserResponse().toUserResponse(user);
     }
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(long id) {
         // Find the User by the given ID
         User user = userRepository.findById(id).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given id" + id));
+                new UserNotFoundException("User not found with the given id " + id));
         // Delete the user with the given ID
         userRepository.delete(user);
     }

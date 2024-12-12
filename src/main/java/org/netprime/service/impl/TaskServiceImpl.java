@@ -30,7 +30,7 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskResponse> getAllTasks(long userId) {
         // Find the User by the given ID
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given id" + userId));
+                new UserNotFoundException("User not found with the given id " + userId));
 
         // Return all tasks related to a specific user
         return user.getTasks().stream().map(task ->
@@ -42,11 +42,11 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse getTaskById(long userId, long taskId) {
         // Find the User by the given ID
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given id" + userId));
+                new UserNotFoundException("User not found with the given id " + userId));
         Task response = user.getTasks().stream().filter(task ->
                 task.getId() == taskId)
                 .findFirst()
-                .orElseThrow(() -> new TaskNotFoundException("Task not found with the given id" + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with the given id " + taskId));
         return new TaskResponse().toTaskResponse(response);
     }
 
@@ -54,7 +54,7 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse createTask(long userId, TaskRequest taskRequest) {
         // Find the User by the given ID
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given id" + userId));
+                new UserNotFoundException("User not found with the given id " + userId));
 
         Task task = new Task();
         task.setTitle(taskRequest.getTitle());
@@ -71,12 +71,12 @@ public class TaskServiceImpl implements TaskService {
     public TaskResponse updateTask(long userId, long taskId, TaskRequest taskRequest) {
         // Find the User by the given ID
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given id" + userId));
+                new UserNotFoundException("User not found with the given id " + userId));
         // Filter the task by the given ID
         Task filteredTask = user.getTasks().stream().filter(task ->
                 task.getId() == taskId)
                 .findFirst()
-                .orElseThrow(() -> new TaskNotFoundException("Task not found with the given id" + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with the given id " + taskId));
         // Update an existing task
         filteredTask.setTitle(taskRequest.getTitle());
         filteredTask.setDescription(taskRequest.getDescription());
@@ -91,12 +91,12 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(long userId, long taskId) {
         // Find the User by the given ID
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new UserNotFoundException("User not found with the given id" + userId));
+                new UserNotFoundException("User not found with the given id " + userId));
         // Filter the task by the given ID
         Task filteredTask = user.getTasks().stream().filter(task ->
                         task.getId() == taskId)
                 .findFirst()
-                .orElseThrow(() -> new TaskNotFoundException("Task not found with the given id" + taskId));
+                .orElseThrow(() -> new TaskNotFoundException("Task not found with the given id " + taskId));
 
         taskRepository.delete(filteredTask);
     }
